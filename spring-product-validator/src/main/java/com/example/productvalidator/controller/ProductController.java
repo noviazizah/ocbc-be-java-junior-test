@@ -2,7 +2,6 @@ package com.example.productvalidator.controller;
 
 import com.example.productvalidator.model.Product;
 import com.example.productvalidator.validator.ProductValidator;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BeanPropertyBindingResult;
 import org.springframework.validation.Errors;
@@ -14,8 +13,11 @@ import java.util.List;
 @RequestMapping("/products")
 public class ProductController {
 
-    @Autowired
-    private ProductValidator productValidator;
+    private final ProductValidator productValidator;
+
+    public ProductController(ProductValidator productValidator) {
+        this.productValidator = productValidator;
+    }
 
     @PostMapping
     public ResponseEntity<?> createProduct(@RequestBody Product product) {
