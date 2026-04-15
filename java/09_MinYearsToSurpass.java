@@ -3,23 +3,22 @@ final class MinYearsToSurpass {
     private MinYearsToSurpass() {
     }
 
-    public static int minYearsToSurpass(double firstValue, double firstGrowthRate,
-                                        double secondValue, double secondGrowthRate) {
-        if (firstValue > secondValue) {
+    public static int minYearsToSurpass(double aliceInitial, double bobBonus,
+                                        double aliceRate, double bobRate) {
+        double alice = aliceInitial;
+        double bob = bobBonus;
+
+        if (bob > alice) {
             return 0;
         }
-
-        if (firstGrowthRate <= secondGrowthRate) {
+        if (bobRate <= aliceRate) {
             return -1;
         }
 
         int years = 0;
-        double currentFirst = firstValue;
-        double currentSecond = secondValue;
-
-        while (currentFirst <= currentSecond) {
-            currentFirst += currentFirst * firstGrowthRate;
-            currentSecond += currentSecond * secondGrowthRate;
+        while (bob <= alice) {
+            alice *= 1 + aliceRate;
+            bob *= 1 + bobRate;
             years++;
         }
 

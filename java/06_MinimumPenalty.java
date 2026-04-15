@@ -1,22 +1,32 @@
-import java.util.Arrays;
+import java.util.List;
+import java.util.PriorityQueue;
 
 final class MinimumPenalty {
 
     private MinimumPenalty() {
     }
 
-    public static long minimumPenalty(int[] values) {
-        if (values == null || values.length <= 1) {
+    public static long getMinimumPenalty(List<Integer> quantity, int m) {
+        if (quantity == null || quantity.isEmpty() || m <= 0) {
             return 0L;
         }
 
-        Arrays.sort(values);
-        long penalty = 0L;
-
-        for (int index = 1; index < values.length; index++) {
-            penalty += (long) values[index] - values[index - 1];
+        PriorityQueue<Integer> minHeap = new PriorityQueue<>();
+        for (Integer count : quantity) {
+            if (count != null && count > 0) {
+                minHeap.offer(count);
+            }
         }
 
-        return penalty;
+        long totalPenalty = 0L;
+        for (int sold = 0; sold < m && !minHeap.isEmpty(); sold++) {
+            int current = minHeap.poll();
+            totalPenalty += current;
+            if (current > 1) {
+                minHeap.offer(current - 1);
+            }
+        }
+
+        return totalPenalty;
     }
 }

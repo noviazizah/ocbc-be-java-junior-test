@@ -1,0 +1,5 @@
+.clang-module-cache/
+**/target/
+*.class
+TestRunner.java
+.DS_Store
